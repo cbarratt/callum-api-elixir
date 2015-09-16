@@ -1,0 +1,93 @@
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= for last <- @last_weighin do %>
+      <h3 class="panel-title">Weight <small>...measured <%= last.taken_at %></small></h3>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <h2><%= last.weight %> KG</h2>
+        <h2><%= Float.ceil(elem(Float.parse(last.weight), 0) * 2.20462, 2) %> LBS</h2>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Calorie intake for today</h3>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <h2>
+          <%# if @current_intake %>
+            <%#= @current_intake.calories %>
+          <%# else %>
+            0
+          <%# end %>
+          / 2295
+        </h2>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Last Weighin's</h3>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Weight</th>
+          <th>Fat mass (kg)</th>
+          <th>Bodyfat %</th>
+          <th>Lean mass (kg)</th>
+          <th>Measured</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for measure <- @weighins do %>
+          <tr>
+            <td><%= measure.weight %></td>
+            <td><%= measure.bodyfat_mass %></td>
+            <td><%= measure.bodyfat_percentage %></td>
+            <td><%= measure.lean_mass %></td>
+            <td><%= measure.taken_at %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Macronutrients</h3>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Calories</th>
+          <th>Carbs</th>
+          <th>Fat</th>
+          <th>Protein</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for macro <- @macros do %>
+          <tr>
+            <td><%= link(macro.logged_date, to: "http://www.myfitnesspal.com/food/diary/callumbarratt?date=#{macro.logged_date}") %></td>
+            <td><%= macro.calories %> calories</td>
+            <td><%= macro.carbs %>g</td>
+            <td><%= macro.fat %>g</td>
+            <td><%= macro.protein %>g</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
