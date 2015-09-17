@@ -11,6 +11,8 @@ defmodule Mix.Tasks.Api do
     alias Callumapi.Weight
     alias Callumapi.Macro
 
+    @mfp_login_endpoint "https://www.myfitnesspal.com/account/login"
+
     @shortdoc "Import Macronutrient & Withings data from Rails API"
 
     @moduledoc """
@@ -25,7 +27,7 @@ defmodule Mix.Tasks.Api do
     end
 
     def mfp_auth_session do
-      auth = HTTPoison.post!("https://www.myfitnesspal.com/account/login", {:form, [username: System.get_env("MFP_USER"), password: System.get_env("MFP_PASS")]}, %{"Content-type" => "application/x-www-form-urlencoded"}).headers
+      auth = HTTPoison.post!(@mfp_login_endpoint, {:form, [username: System.get_env("MFP_USER"), password: System.get_env("MFP_PASS")]}, %{"Content-type" => "application/x-www-form-urlencoded"}).headers
       Enum.at(auth, 11)
       |> elem(1)
     end
@@ -50,10 +52,10 @@ defmodule Mix.Tasks.Api do
 
             case Repo.get_by(Macro, logged_date: date) do
             record = %Macro{} ->
-              if macronutrient == "calories", do: update_calories(record, sanitized_value)
-              if macronutrient == "carbs", do: update_carbs(record, sanitized_value)
-              if macronutrient == "fat", do: update_fat(record, sanitized_value)
-              if macronutrient == "protein", do: update_protein(record, sanitized_value)
+              if macronutrient == "calories", do: update_macro(macronutrient, record, sanitized_value)
+              if macronutrient == "carbs", do: update_macro(macronutrient, record, sanitized_value)
+              if macronutrient == "fat", do: update_macro(macronutrient, record, sanitized_value)
+              if macronutrient == "protein", do: update_macro(macronutrient, record, sanitized_value)
             _ ->
               create_macro(sanitized_value, date)
             end
@@ -66,24 +68,10 @@ defmodule Mix.Tasks.Api do
       Repo.insert(%Macro{calories: value, logged_date: date})
     end
 
-    def update_calories(record, value) do
-      macro = %{record | calories: value}
-      Repo.update(macro)
-    end
-
-    def update_carbs(record, value) do
-      macro = %{record | carbs: value}
-      Repo.update(macro)
-    end
-
-    def update_fat(record, value) do
-      macro = %{record | fat: value}
-      Repo.update(macro)
-    end
-
-    def update_protein(record, value) do
-      macro = %{record | protein: value}
-      Repo.update(macro)
+    def update_macro(macronutrient, record, value) do
+      macro = String.to_atom(macronutrient)
+      record = Map.put(record, macro, value)
+      Repo.update(record)
     end
 
     def import_weight_data do
