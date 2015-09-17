@@ -69,9 +69,10 @@ defmodule Mix.Tasks.Api do
     end
 
     def update_macro(macronutrient, record, value) do
-      macro = String.to_atom(macronutrient)
+      macro = macronutrient |> String.to_atom
+
       record = Map.put(record, macro, value)
-      Repo.update(record)
+      |> Repo.update
     end
 
     def import_weight_data do
