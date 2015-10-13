@@ -35,10 +35,10 @@ defmodule Callumapi.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:postgrex, ">= 0.0.0"},
       {:cowboy, "~> 1.0"},
-      {:calecto, "~> 0.3.10"},
+      {:calecto, "~> 0.4.0"},
       {:remodel, "~> 0.0.1"},
       {:httpoison, "~> 0.7"},
-      {:timex, "~> 0.13.2"}
+      {:timex, "~> 0.19.2"}
     ]
   end
 end
