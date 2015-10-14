@@ -2,16 +2,12 @@ defmodule Mix.Tasks.Api do
   defmodule Pulldata do
     import Ecto.Query
 
-    require IEx
-
     use Mix.Task
     use Timex
 
     alias Callumapi.Repo
     alias Callumapi.Weight
     alias Callumapi.Macro
-
-    @mfp_login_endpoint "https://www.myfitnesspal.com/account/login"
 
     @shortdoc "Import Macronutrient & Withings data from Rails API"
 
@@ -23,12 +19,14 @@ defmodule Mix.Tasks.Api do
       Mix.Task.run "app.start", []
 
       import_macros
-      # import_weight_data
+      import_weight_data
     end
 
     def mfp_auth_session do
-      auth = HTTPoison.post!(@mfp_login_endpoint, {:form, [username: System.get_env("MFP_USER"), password: System.get_env("MFP_PASS")]}, %{"Content-type" => "application/x-www-form-urlencoded"}).headers
-      Enum.at(auth, 11)
+      mfp_login_endpoint = "https://www.myfitnesspal.com/account/login"
+
+      auth = HTTPoison.post!(mfp_login_endpoint, {:form, [username: System.get_env("MFP_USER"), password: System.get_env("MFP_PASS")]}, %{"Content-type" => "application/x-www-form-urlencoded"}).headers
+      Enum.at(auth, 7)
       |> elem(1)
     end
 
