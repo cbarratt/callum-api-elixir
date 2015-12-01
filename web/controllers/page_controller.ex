@@ -13,7 +13,7 @@ defmodule Callumapi.PageController do
       order_by: [desc: m.id]
 
     latest_weighin = from weighin in Weight,
-      order_by: [desc: weighin.id],
+      order_by: [desc: weighin.withings_id],
       limit: 1
 
     weight_data = Repo.all(weighin_query)
