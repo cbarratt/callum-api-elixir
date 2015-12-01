@@ -26,8 +26,8 @@ defmodule Mix.Tasks.Api do
       mfp_login_endpoint = "https://www.myfitnesspal.com/account/login"
 
       auth = HTTPoison.post!(mfp_login_endpoint, {:form, [username: System.get_env("MFP_USER"), password: System.get_env("MFP_PASS")]}, %{"Content-type" => "application/x-www-form-urlencoded"}).headers
-      Enum.at(auth, 11)
-      |> elem(1)
+
+      Enum.at(auth, 11) |> elem(1)
     end
 
     def retrieve_data(macro) do
@@ -69,8 +69,7 @@ defmodule Mix.Tasks.Api do
     def update_macro(macronutrient, record, value) do
       macro = macronutrient |> String.to_atom
 
-      record = Map.put(record, macro, value)
-      |> Repo.update
+      Map.put(record, macro, value) |> Repo.update
     end
 
     def import_weight_data do
