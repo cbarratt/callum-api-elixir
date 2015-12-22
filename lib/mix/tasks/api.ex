@@ -19,7 +19,7 @@ defmodule Mix.Tasks.Api do
       Mix.Task.run "app.start", []
 
       import_macros
-      # import_weight_data
+      import_weighins
     end
 
     def mfp_auth_session do
@@ -66,8 +66,8 @@ defmodule Mix.Tasks.Api do
       Map.put(record, macro, value) |> Repo.update
     end
 
-    def import_weight_data do
-      weight_data = HTTPoison.get!("http://callumbarratt.co.uk/api/v1/weighins").body
+    def import_weighins do
+      weight_data = HTTPoison.get!("http://callumbarratt.herokuapp.com/api/v1/weighins").body
       |> Poison.decode!
 
       Enum.each weight_data["weighins"], fn json ->
