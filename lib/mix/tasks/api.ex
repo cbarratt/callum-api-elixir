@@ -12,7 +12,9 @@ defmodule Mix.Tasks.Api do
     @shortdoc "Import Macronutrient & Withings data from Rails API"
 
     @moduledoc """
-    Import data from Rails API.
+    Import the following data:
+    import_macros -> Fetch MyFitnessPal JSON data and store it in the "macros" table
+    import_weighins -> Fetch Withings JSON data and store it in the "weighins" table
     """
 
     def run(_) do
@@ -22,13 +24,23 @@ defmodule Mix.Tasks.Api do
       import_weighins
     end
 
+    @doc """
+    Fetch the Rails login session_cookie from MyFitnessPal
+    We use this to gain access to JSON api's from within a logged in state.
+    """
+
     def mfp_auth_session do
       mfp_login_endpoint = "https://www.myfitnesspal.com/account/login"
 
-      auth = HTTPoison.post!(mfp_login_endpoint, {:form, [username: System.get_env("MFP_USER"), password: System.get_env("MFP_PASS")]}, %{"Content-type" => "application/x-www-form-urlencoded"}).headers
-
-      Enum.at(auth, 11) |> elem(1)
+      HTTPoison.post!(mfp_login_endpoint, {:form, [username: System.get_env("MFP_USER"), password: System.get_env("MFP_PASS")]}, %{"Content-type" => "application/x-www-form-urlencoded"}).headers
+      |> Enum.at(11)
+      |> elem(1)
     end
+
+    @doc """
+    Use the MyFitnessPal session cookie to request an endpoint used on the front end
+    for the users data on a graph.
+    """
 
     def retrieve_data(macro) do
       HTTPoison.get!("http://www.myfitnesspal.com/reports/results/nutrition/#{macro}/400.json?report_name=#{macro}", %{"Cookie" => mfp_auth_session}).body
