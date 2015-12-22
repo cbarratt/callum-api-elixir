@@ -1,14 +1,12 @@
 <div class="col-md-6">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <%= for last <- @last_weighin do %>
-      <h3 class="panel-title">Weight <small>...measured <%= last.taken_at %></small></h3>
+      <h3 class="panel-title">Weight <small>...measured <%= @last_weighin.taken_at %></small></h3>
     </div>
     <ul class="list-group">
       <li class="list-group-item">
-        <h2><%= last.weight %> KG</h2>
-        <h2><%= Float.ceil(elem(Float.parse(last.weight), 0) * 2.20462, 2) %> LBS</h2>
-        <% end %>
+        <h2><%= @last_weighin.weight %> KG</h2>
+        <h2><%= to_lbs(@last_weighin.weight) %> LBS</h2>
       </li>
     </ul>
   </div>
@@ -22,11 +20,7 @@
     <ul class="list-group">
       <li class="list-group-item">
         <h2>
-          <%# if @current_intake %>
-            <%#= @current_intake.calories %>
-          <%# else %>
-            0
-          <%# end %>
+          <%= calories(@current_intake) %>
           / 2295
         </h2>
       </li>

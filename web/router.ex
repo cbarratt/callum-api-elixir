@@ -23,5 +23,6 @@ defmodule Callumapi.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/bitcoin", BitcoinController, :index
   end
 end
