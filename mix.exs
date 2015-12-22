@@ -33,7 +33,7 @@ defmodule Callumapi.Mixfile do
       {:phoenix_ecto, "~> 1.2.0"},
       {:phoenix_html, "~> 2.2.0"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:postgrex, ">= 0.0.0"},
+      {:postgrex, "~> 0.10"},
       {:cowboy, "~> 1.0"},
       {:calecto, "~> 0.4.0"},
       {:remodel, "~> 0.0.1"},
