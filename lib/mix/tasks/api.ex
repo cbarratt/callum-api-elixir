@@ -36,24 +36,18 @@ defmodule Mix.Tasks.Api do
     end
 
     def import_macros do
-      macros = ["calories", "carbs", "fat", "protein"]
+      ["calories", "carbs", "fat", "protein"]
+      |> Enum.each fn macronutrient ->
+        retrieve_data(macronutrient)["data"]
+        |> Enum.each fn json ->
+          if json["total"] > 0.0 do
+            sanitized_value = json["total"] |> round |> to_string
 
-      Enum.each macros, fn macronutrient ->
-        mfp_data = retrieve_data(macronutrient)
-
-        Enum.each mfp_data["data"], fn json ->
-          recording = json["total"]
-          sanitized_value = Float.to_string(recording, [decimals: 0])
-
-          if recording > 0.0 do
             date = DateFormat.parse!("2015/#{json["date"]}", "{YYYY}/{0M}/{0D}") |> DateFormat.format!("%d %B %Y", :strftime)
 
             case Repo.get_by(Macro, logged_date: date) do
             record = %Macro{} ->
-              if macronutrient == "calories", do: update_macro(macronutrient, record, sanitized_value)
-              if macronutrient == "carbs", do: update_macro(macronutrient, record, sanitized_value)
-              if macronutrient == "fat", do: update_macro(macronutrient, record, sanitized_value)
-              if macronutrient == "protein", do: update_macro(macronutrient, record, sanitized_value)
+              update_macro(macronutrient, record, sanitized_value)
             _ ->
               create_macro(sanitized_value, date)
             end
