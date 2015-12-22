@@ -19,7 +19,7 @@ defmodule Mix.Tasks.Api do
       Mix.Task.run "app.start", []
 
       import_macros
-      import_weight_data
+      # import_weight_data
     end
 
     def mfp_auth_session do
