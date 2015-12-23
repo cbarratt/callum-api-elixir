@@ -29,8 +29,8 @@ defmodule Callumapi.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:phoenix, "~> 1.0.2"},
-      {:phoenix_ecto, "~> 1.2.0"},
+      {:phoenix, "~> 1.1.0"},
+      {:phoenix_ecto, "~> 2.0.0"},
       {:phoenix_html, "~> 2.2.0"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:postgrex, "~> 0.10"},
@@ -38,7 +38,8 @@ defmodule Callumapi.Mixfile do
       {:calecto, "~> 0.4.0"},
       {:remodel, "~> 0.0.1"},
       {:httpoison, "~> 0.7"},
-      {:timex, "~> 0.19.2"}
+      {:timex, "~> 0.19.2"},
+      {:credo, "~> 0.2", only: [:dev, :test]}
     ]
   end
 end

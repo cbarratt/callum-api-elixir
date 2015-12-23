@@ -11,4 +11,9 @@ defmodule Callumapi.Macro do
 
     timestamps
   end
+
+  def changeset(macro, params) do
+    macro
+    |> cast(params, ~w(), ~w(calories carbs fat protein logged_date))
+  end
 end

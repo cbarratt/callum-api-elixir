@@ -9,6 +9,9 @@ defmodule Mix.Tasks.Api do
     alias Callumapi.Weight
     alias Callumapi.Macro
 
+    @myfitnesspal_endpoint "https://www.myfitnesspal.com/account/login"
+    @withings_endpoint     "http://callumbarratt.herokuapp.com/api/v1/weighins"
+
     @shortdoc "Import Macronutrient & Withings data from Rails API"
 
     @moduledoc """
@@ -30,9 +33,7 @@ defmodule Mix.Tasks.Api do
     """
 
     def mfp_auth_session do
-      mfp_login_endpoint = "https://www.myfitnesspal.com/account/login"
-
-      HTTPoison.post!(mfp_login_endpoint, {:form, [username: System.get_env("MFP_USER"), password: System.get_env("MFP_PASS")]}, %{"Content-type" => "application/x-www-form-urlencoded"}).headers
+      HTTPoison.post!(@myfitnesspal_endpoint, {:form, [username: System.get_env("MFP_USER"), password: System.get_env("MFP_PASS")]}, %{"Content-type" => "application/x-www-form-urlencoded"}).headers
       |> Enum.at(11)
       |> elem(1)
     end
@@ -68,18 +69,35 @@ defmodule Mix.Tasks.Api do
       end
     end
 
+    @doc """
+    Initialise a row in the database for that specified date. At this point we have
+    access only to the calories as it's the first retrieved macro from the JSON.
+    """
+
     def create_macro(value, date) do
       Repo.insert(%Macro{calories: value, logged_date: date})
     end
 
-    def update_macro(macronutrient, record, value) do
-      macro = macronutrient |> String.to_atom
+    @doc """
+    Used to update a pre-existing row and add in the individual macronutrient value.
+    Calories will already be specified, we are only looping through carbs, fat and protein.
+    """
 
-      Map.put(record, macro, value) |> Repo.update
+    def update_macro(macronutrient, record, value) do
+      macronutrient = macronutrient |> String.to_atom
+
+      changed = Map.put(%{}, macronutrient, value)
+
+      Macro.changeset(record, changed)
+      |> Repo.update
     end
 
+    @doc """
+    Pull Withings data from Rails API and inserts it into the database unless it already exists.
+    """
+
     def import_weighins do
-      weight_data = HTTPoison.get!("http://callumbarratt.herokuapp.com/api/v1/weighins").body
+      weight_data = HTTPoison.get!(@withings_endpoint).body
       |> Poison.decode!
 
       Enum.each weight_data["weighins"], fn json ->

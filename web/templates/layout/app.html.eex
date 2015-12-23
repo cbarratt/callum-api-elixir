@@ -14,7 +14,7 @@
     <div class="container">
       <section class="content">
         <div class="inner">
-          <%= @inner %>
+          <%= render @view_module, @view_template, assigns %>
         </div>
       </section>
     </div>
