@@ -5,9 +5,7 @@ defmodule Mix.Tasks.Api do
     use Mix.Task
     use Timex
 
-    alias Callumapi.Repo
-    alias Callumapi.Weight
-    alias Callumapi.Macro
+    alias Callumapi.{Repo, Weight, Macro}
 
     @myfitnesspal_endpoint "https://www.myfitnesspal.com/account/login"
     @withings_endpoint     "http://callumbarratt.herokuapp.com/api/v1/weighins"
@@ -84,11 +82,7 @@ defmodule Mix.Tasks.Api do
     """
 
     def update_macro(macronutrient, record, value) do
-      macronutrient = macronutrient |> String.to_atom
-
-      changed = Map.put(%{}, macronutrient, value)
-
-      Macro.changeset(record, changed)
+      Macro.changeset(record, %{macronutrient => value})
       |> Repo.update
     end
 
