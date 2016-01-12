@@ -1,8 +1,7 @@
 defmodule Callumapi.WeightController do
   use Callumapi.Web, :controller
 
-  alias Callumapi.Repo
-  alias Callumapi.Weight
+  alias Callumapi.{Repo, Weight}
 
   def index(conn, _params) do
     weighins = Repo.all(

@@ -1,9 +1,7 @@
 defmodule Callumapi.PageController do
   use Callumapi.Web, :controller
 
-  alias Callumapi.Repo
-  alias Callumapi.Weight
-  alias Callumapi.Macro
+  alias Callumapi.{Repo, Weight, Macro}
 
   def index(conn, _params) do
     weights = Repo.all from w in Weight, order_by: [desc: w.withings_id], limit: 8
