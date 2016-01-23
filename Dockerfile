@@ -11,7 +11,7 @@ WORKDIR /home/app
 
 ADD mix* /home/app/
 
-RUN cd mix deps.get && mix compile
+RUN mix deps.get && mix compile
 
 ADD . /home/app
 
