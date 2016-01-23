@@ -11,5 +11,7 @@ COPY . /app
 
 WORKDIR /app
 
+RUN mix deps.get && mix compile
+
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["server"]
