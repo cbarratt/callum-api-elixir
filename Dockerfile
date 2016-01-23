@@ -9,7 +9,9 @@ EXPOSE 4000
 
 WORKDIR /home/app
 
-RUN cd /home/app && mix deps.get && mix compile
+ADD mix* /home/app/
+
+RUN cd mix deps.get && mix compile
 
 ADD . /home/app
 
