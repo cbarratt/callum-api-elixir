@@ -11,6 +11,8 @@ WORKDIR /home/deploy/app
 
 ADD mix* /home/deploy/app/
 
+USER deploy
+
 RUN mix deps.get && mix compile
 
 ADD . /home/deploy/app
