@@ -7,13 +7,13 @@ USER deploy
 
 EXPOSE 4000
 
-WORKDIR /home/app
+WORKDIR /home/deploy/app
 
-ADD mix* /home/app/
+ADD mix* /home/deploy/app/
 
 RUN mix deps.get && mix compile
 
-ADD . /home/app
+ADD . /home/deploy/app
 
-ENTRYPOINT ["/app/docker-entrypoint.sh"]
+ENTRYPOINT ["/home/deploy/app/docker-entrypoint.sh"]
 CMD ["server"]
