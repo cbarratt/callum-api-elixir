@@ -3,7 +3,7 @@ MAINTAINER Joakim Kolsjo <joakim.kolsjo<at>gmail.com>
 
 ENV MIX_ENV=prod
 
-USER deploy
+USER root
 
 EXPOSE 4000
 
