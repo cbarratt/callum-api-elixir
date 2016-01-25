@@ -15,7 +15,7 @@ ADD mix* /home/deploy/app/
 
 ADD . /home/deploy/app
 
-RUN mix deps.get && mix compile
+RUN mix deps.get
 
 ENTRYPOINT ["/home/deploy/app/docker-entrypoint.sh"]
 CMD ["server"]
