@@ -1,6 +1,5 @@
 defmodule Callumapi.Weight do
   use Ecto.Model
-  use Calecto.Model
 
   schema "weighins" do
     field :withings_id, :integer

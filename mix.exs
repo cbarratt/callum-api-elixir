@@ -34,10 +34,10 @@ defmodule Callumapi.Mixfile do
       {:phoenix_html, "~> 2.3.0"},
       {:postgrex, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:calecto, "~> 0.4.0"},
       {:httpoison, "~> 0.7"},
       {:timex, "~> 0.19.2"},
-      {:credo, "~> 0.2", only: [:dev, :test]}
+      {:credo, "~> 0.2", only: [:dev, :test]},
+      {:ex_machina, "~> 0.6.1", only: :test}
     ]
   end
 end

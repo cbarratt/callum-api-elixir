@@ -9,12 +9,17 @@ config :callumapi, Callumapi.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-# Configure your database
-config :callumapi, Callumapi.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "callum",
-  password: "",
-  database: "callumapi_test",
-  size: 1,
-  max_overflow: false,
-  pool: Ecto.Adapters.SQL.Sandbox
+if System.get_env("CIRCLECI") do
+  config :callumapi, Callumapi.Repo,
+    adapter: Ecto.Adapters.Postgres,
+    url: {:system, "DATABASE_URL"}
+else
+  config :callumapi, Callumapi.Repo,
+    adapter: Ecto.Adapters.Postgres,
+    username: "callum",
+    password: "",
+    database: "callumapi_test",
+    size: 1,
+    max_overflow: false,
+    pool: Ecto.Adapters.SQL.Sandbox
+end
