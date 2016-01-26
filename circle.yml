@@ -2,6 +2,7 @@ machine:
   environment:
     PATH: "$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
     DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+    MIX_ENV: test
   services:
     - postgresql
   node:
