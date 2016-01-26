@@ -1,6 +1,8 @@
 # Personal site implemented in Elixir & Phoenix
 
-## Requirements
+[![Circle CI](https://circleci.com/gh/cbarratt/callum-barratt-elixir.svg?&style=shield&circle-token=85bd6cc595f7c4c494c5ab2dc6edc05438ff2426)](https://circleci.com/gh/cbarratt/callum-barratt-elixir)
+
+# Requirements
 
 - Erlang/OTP 18
 - PostgreSQL
