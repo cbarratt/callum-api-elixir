@@ -25,7 +25,6 @@ asdf install elixir 1.2.1
 
 # Get dependencies
 yes | mix deps.get
-mix local.rebar
 
 # Exit successfully
 exit 0
