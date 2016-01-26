@@ -24,6 +24,7 @@ asdf install erlang 18.2.1
 asdf install elixir 1.2.1
 
 # Get dependencies
+yes | mix local.hex
 yes | mix deps.get
 
 # Exit successfully
