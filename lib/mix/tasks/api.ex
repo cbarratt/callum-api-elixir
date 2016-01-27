@@ -61,27 +61,24 @@ defmodule Mix.Tasks.Api do
         |> Enum.each fn json ->
           if json["total"] > 0.0 do
             sanitized_value = json["total"] |> round |> to_string
+            formatted_date = format_date(json)
 
-            date = DateFormat.parse!("2015/#{json["date"]}", "{YYYY}/{0M}/{0D}") |> DateFormat.format!("%d %B %Y", :strftime)
+            record = macro_exist?(formatted_date)
 
-            case Repo.get_by(Macro, logged_date: date) do
-            record = %Macro{} ->
-              update_macro(macronutrient, record, sanitized_value)
-            _ ->
-              create_macro(sanitized_value, date)
-            end
+            new_macro = %{macronutrient: macronutrient, sanitized_value: sanitized_value, date: formatted_date}
+            |> save_macro(record)
           end
         end
       end
     end
 
-    @doc """
-    Initialise a row in the database for that specified date. At this point we have
-    access only to the calories as it's the first retrieved macro from the JSON.
-    """
+    def macro_exist?(date) do
+      Repo.get_by(Macro, logged_date: date)
+    end
 
-    def create_macro(value, date) do
-      Repo.insert(%Macro{calories: value, logged_date: date})
+    def format_date(%{"date" => date}) do
+      DateFormat.parse!("2015/#{date}", "{YYYY}/{0M}/{0D}")
+      |> DateFormat.format!("%d %B %Y", :strftime)
     end
 
     @doc """
@@ -89,9 +86,18 @@ defmodule Mix.Tasks.Api do
     Calories will already be specified, we are only looping through carbs, fat and protein.
     """
 
-    def update_macro(macronutrient, record, value) do
+    def save_macro(%{sanitized_value: value, macronutrient: macronutrient}, record = %Macro{}) do
       Macro.changeset(record, %{macronutrient => value})
       |> Repo.update
+    end
+
+    @doc """
+    Initialise a row in the database for that specified date. At this point we have
+    access only to the calories as it's the first retrieved macro from the JSON.
+    """
+
+    def save_macro(%{sanitized_value: value, date: date}, _) do
+      Repo.insert(%Macro{calories: value, logged_date: date})
     end
 
     @doc """
