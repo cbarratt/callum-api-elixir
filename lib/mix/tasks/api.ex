@@ -56,9 +56,9 @@ defmodule Mix.Tasks.Api do
 
     def import_macros do
       @macro_types
-      |> Enum.each fn macronutrient ->
+      |> Enum.each(fn macronutrient ->
         retrieve_data(macronutrient)["data"]
-        |> Enum.each fn json ->
+        |> Enum.each(fn json ->
           if json["total"] > 0.0 do
             sanitized_value = json["total"] |> round |> to_string
             formatted_date = format_date(json)
@@ -68,8 +68,8 @@ defmodule Mix.Tasks.Api do
             new_macro = %{macronutrient: macronutrient, sanitized_value: sanitized_value, date: formatted_date}
             |> save_macro(record)
           end
-        end
-      end
+        end)
+      end)
     end
 
     def macro_exist?(date) do

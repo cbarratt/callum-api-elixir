@@ -29,13 +29,13 @@ defmodule Callumapi.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:phoenix, "~> 1.1.3"},
+      {:phoenix, "~> 1.1.4"},
       {:phoenix_ecto, "~> 2.0.0"},
-      {:phoenix_html, "~> 2.3.0"},
+      {:phoenix_html, "~> 2.4.0"},
       {:postgrex, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:httpoison, "~> 0.7"},
-      {:timex, "~> 0.19.2"},
+      {:timex, "~> 1.0.0"},
       {:credo, "~> 0.2", only: [:dev, :test]},
       {:ex_machina, "~> 0.6.1", only: :test}
     ]
