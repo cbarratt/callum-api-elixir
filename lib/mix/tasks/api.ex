@@ -8,7 +8,7 @@ defmodule Mix.Tasks.Api do
     alias Callumapi.{Repo, Weight, Macro}
 
     @myfitnesspal_endpoint "https://www.myfitnesspal.com/account/login"
-    @withings_endpoint     "http://callumbarratt.herokuapp.com/api/v1/weighins"
+    @withings_endpoint     "http://callum-rails-api.vdtapp.com/api/v1/weighins"
     @macro_types           ["calories", "carbs", "fat", "protein"]
 
     @shortdoc "Import Macronutrient & Withings data from Rails API"
@@ -43,7 +43,7 @@ defmodule Mix.Tasks.Api do
     """
 
     def retrieve_data(macro) do
-      HTTPoison.get!("http://www.myfitnesspal.com/reports/results/nutrition/#{macro}/400.json?report_name=#{macro}", %{"Cookie" => mfp_auth_session}).body
+      HTTPoison.get!("http://www.myfitnesspal.com/reports/results/nutrition/#{macro}/200.json?report_name=#{macro}", %{"Cookie" => mfp_auth_session}).body
       |> Poison.decode!
     end
 
@@ -58,17 +58,22 @@ defmodule Mix.Tasks.Api do
       @macro_types
       |> Enum.each(fn macronutrient ->
         retrieve_data(macronutrient)["data"]
-        |> Enum.each(fn json ->
-          if json["total"] > 0.0 do
-            sanitized_value = json["total"] |> round |> to_string
-            formatted_date = format_date(json)
+        |> process_data(macronutrient)
+      end)
+    end
 
-            record = macro_exist?(formatted_date)
+    def process_data(data, macronutrient) do
+      data
+      |> Enum.each(fn json ->
+        if json["total"] > 0.0 do
+          sanitized_value = json["total"] |> round |> to_string
+          formatted_date = format_date(json)
 
-            new_macro = %{macronutrient: macronutrient, sanitized_value: sanitized_value, date: formatted_date}
-            |> save_macro(record)
-          end
-        end)
+          record = macro_exist?(formatted_date)
+
+          new_macro = %{macronutrient: macronutrient, sanitized_value: sanitized_value, date: formatted_date}
+          |> save_macro(record)
+        end
       end)
     end
 
