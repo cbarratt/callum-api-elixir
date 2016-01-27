@@ -9,6 +9,7 @@ defmodule Mix.Tasks.Api do
 
     @myfitnesspal_endpoint "https://www.myfitnesspal.com/account/login"
     @withings_endpoint     "http://callumbarratt.herokuapp.com/api/v1/weighins"
+    @macro_types           ["calories", "carbs", "fat", "protein"]
 
     @shortdoc "Import Macronutrient & Withings data from Rails API"
 
@@ -46,8 +47,15 @@ defmodule Mix.Tasks.Api do
       |> Poison.decode!
     end
 
+    @doc """
+    Loop through each macro type in @macro_types and retrieve the JSON data for each.
+    Initially checks to see if the data on that day is empty, if so it is skipped (we don't want to store 0 calories/carbs/fats/protein)
+    If there is a value, it will parse the date associated and check the database to see if a record for that day exists already,
+    if it doesn't it will create the row with the first value. If it does, it will individually update the value for each macronutrient.
+    """
+
     def import_macros do
-      ["calories", "carbs", "fat", "protein"]
+      @macro_types
       |> Enum.each fn macronutrient ->
         retrieve_data(macronutrient)["data"]
         |> Enum.each fn json ->
