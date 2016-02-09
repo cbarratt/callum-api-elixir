@@ -17,7 +17,7 @@ defmodule Callumapi.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Callumapi, []},
-     applications: [:phoenix, :cowboy, :logger, :phoenix_ecto, :httpoison, :tzdata]]
+     applications: [:phoenix, :cowboy, :logger, :phoenix_ecto, :httpoison]]
   end
 
   # Specifies which paths to compile per environment
@@ -36,7 +36,6 @@ defmodule Callumapi.Mixfile do
       {:cowboy, "~> 1.0"},
       {:httpoison, "~> 0.7"},
       {:timex, "~> 1.0.0"},
-      {:credo, "~> 0.2", only: [:dev, :test]},
       {:ex_machina, "~> 0.6.1", only: :test}
     ]
   end
