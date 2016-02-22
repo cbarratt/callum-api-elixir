@@ -1,3 +1,3 @@
-defmodule Callumapi.LayoutView do
-  use Callumapi.Web, :view
+defmodule Callum.LayoutView do
+  use Callum.Web, :view
 end

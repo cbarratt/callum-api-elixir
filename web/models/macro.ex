@@ -1,5 +1,7 @@
-defmodule Callumapi.Macro do
-  use Ecto.Model
+defmodule Callum.Macro do
+  use Ecto.Schema
+
+  import Ecto.Changeset
 
   schema "macros" do
     field :calories
@@ -11,8 +13,8 @@ defmodule Callumapi.Macro do
     timestamps
   end
 
-  def changeset(macro, params) do
+  def changeset(macro, params \\ :empty) do
     macro
-    |> cast(params, ~w(), ~w(calories carbs fat protein logged_date))
+    |> cast(params, [:calories, :carbs, :fat, :protein, :logged_date])
   end
 end

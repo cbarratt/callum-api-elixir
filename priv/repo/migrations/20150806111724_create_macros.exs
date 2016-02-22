@@ -1,4 +1,4 @@
-defmodule Callumapi.Repo.Migrations.CreateMacros do
+defmodule Callum.Repo.Migrations.CreateMacros do
   use Ecto.Migration
 
   def change do

@@ -1,7 +1,7 @@
-defmodule Callumapi.PageControllerTest do
-  use Callumapi.ConnCase
+defmodule Callum.PageControllerTest do
+  use Callum.ConnCase
 
-  import Callumapi.Factory
+  import Callum.Factory
 
   test "Get the homepage" do
     macro = create(:macro)

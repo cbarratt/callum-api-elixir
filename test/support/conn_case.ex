@@ -1,10 +1,10 @@
-defmodule Callumapi.ConnCase do
+defmodule Callum.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
 
   Such tests rely on `Phoenix.ConnTest` and also
-  imports other functionalities to make it easier
+  imports other functionality to make it easier
   to build and query models.
 
   Finally, if the test case interacts with the database,
@@ -20,24 +20,21 @@ defmodule Callumapi.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      # Alias the data repository and import query/model functions
-      alias Callumapi.Repo
-      import Ecto.Model
-      import Ecto.Query, only: [from: 2]
+      alias Callum.Repo
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query, only: [from: 1, from: 2]
 
-      # Import URL helpers from the router
-      import Callumapi.Router.Helpers
+      import Callum.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Callumapi.Endpoint
+      @endpoint Callum.Endpoint
     end
   end
 
   setup tags do
-    unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Callumapi.Repo, [])
-    end
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Callum.Repo)
 
-    :ok
+    {:ok, conn: Phoenix.ConnTest.conn()}
   end
 end

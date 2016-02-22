@@ -1,7 +1,7 @@
-defmodule Callumapi.Factory do
-  use ExMachina.Ecto, repo: Callumapi.Repo
+defmodule Callum.Factory do
+  use ExMachina.Ecto, repo: Callum.Repo
 
-  alias Callumapi.{Weight, Macro}
+  alias Callum.{Weight, Macro}
 
   def factory(:weighin) do
     %Weight{

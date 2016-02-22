@@ -1,12 +1,12 @@
-defmodule Callumapi.ErrorView do
-  use Callumapi.Web, :view
+defmodule Callum.ErrorView do
+  use Callum.Web, :view
 
   def render("404.html", _assigns) do
-    "Page not found - 404"
+    "Page not found"
   end
 
   def render("500.html", _assigns) do
-    "Server internal error - 500"
+    "Server internal error"
   end
 
   # In case no render clause matches or no

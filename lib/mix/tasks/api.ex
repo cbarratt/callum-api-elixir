@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Api do
     use Mix.Task
     use Timex
 
-    alias Callumapi.{Repo, Weight, Macro}
+    alias Callum.{Repo, Weight, Macro}
 
     @myfitnesspal_endpoint "https://www.myfitnesspal.com/account/login"
     @withings_endpoint     "http://callum-rails-api.vdtapp.com/api/v1/weighins"

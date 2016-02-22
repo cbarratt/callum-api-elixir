@@ -1,5 +1,5 @@
-defmodule Callumapi.Router do
-  use Phoenix.Router
+defmodule Callum.Router do
+  use Callum.Web, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,7 +13,7 @@ defmodule Callumapi.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Callumapi do
+  scope "/", Callum do
     pipe_through :browser
 
     get "/", PageController, :index

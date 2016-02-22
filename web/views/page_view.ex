@@ -1,5 +1,5 @@
-defmodule Callumapi.PageView do
-  use Callumapi.Web, :view
+defmodule Callum.PageView do
+  use Callum.Web, :view
   use Timex
 
   def to_lbs(weight) do

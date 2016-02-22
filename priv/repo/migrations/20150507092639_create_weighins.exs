@@ -1,4 +1,4 @@
-defmodule Callumapi.Repo.Migrations.CreateWeighins do
+defmodule Callum.Repo.Migrations.CreateWeighins do
   use Ecto.Migration
 
   def change do
