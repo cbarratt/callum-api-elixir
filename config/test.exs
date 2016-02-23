@@ -11,7 +11,7 @@ config :logger, level: :warn
 
 # Configure your database
 if System.get_env("CIRCLECI") do
-  config :callum, Callumapi.Repo,
+  config :callum, Callum.Repo,
     adapter: Ecto.Adapters.Postgres,
     url: {:system, "DATABASE_URL"},
     pool: Ecto.Adapters.SQL.Sandbox
