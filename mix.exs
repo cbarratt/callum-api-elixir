@@ -32,7 +32,7 @@ defmodule Callum.Mixfile do
       {:phoenix_html, "~> 2.3"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.9"},
-      {:httpoison, "~> 0.8.1"},
+      {:httpoison, "~> 0.8"},
       {:timex, "~> 1.0.0"},
       {:cowboy, "~> 1.0"},
       {:ex_machina, "~> 0.6.1", only: :test}
