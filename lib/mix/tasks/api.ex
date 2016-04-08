@@ -8,7 +8,7 @@ defmodule Mix.Tasks.Api do
     alias Callum.{Repo, Weight, Macro}
 
     @myfitnesspal_endpoint "https://www.myfitnesspal.com/account/login"
-    @withings_endpoint     "http://callum-rails-api.vdtapp.com/api/v1/weighins"
+    @withings_endpoint     "http://home.barratt.me:4000/api/v1/weighins"
     @macro_types           ["calories", "carbs", "fat", "protein"]
 
     @shortdoc "Import Macronutrient & Withings data from Rails API"
