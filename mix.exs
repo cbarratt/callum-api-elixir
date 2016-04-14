@@ -33,6 +33,7 @@ defmodule Callum.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.9"},
       {:httpoison, "~> 0.8.3"},
+      {:hackney, "~> 1.6.0", override: true},
       {:timex, "~> 1.0.0"},
       {:cowboy, "~> 1.0"},
       {:ex_machina, "~> 0.6.1", only: :test}
