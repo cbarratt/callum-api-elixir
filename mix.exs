@@ -27,12 +27,12 @@ defmodule Callum.Mixfile do
   defp deps do
     [
       {:phoenix, "~> 1.1.2"},
-      {:phoenix_ecto, "~> 3.0.0-beta"},
+      {:phoenix_ecto, "~> 3.0.0-beta.2"},
       {:postgrex, "~> 0.11.1"},
       {:phoenix_html, "~> 2.3"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.9"},
-      {:httpoison, "~> 0.8"},
+      {:httpoison, "~> 0.8.3"},
       {:timex, "~> 1.0.0"},
       {:cowboy, "~> 1.0"},
       {:ex_machina, "~> 0.6.1", only: :test}
