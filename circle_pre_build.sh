@@ -13,8 +13,8 @@ asdf plugin-add erlang https://github.com/HashNuke/asdf-erlang.git
 asdf plugin-add elixir https://github.com/HashNuke/asdf-elixir.git
 
 # Install erlang/elixir
-asdf install erlang 18.2.1
-asdf install elixir 1.2.1
+asdf install erlang 18.3
+asdf install elixir 1.2.5
 
 # Get dependencies
 yes | mix local.rebar
