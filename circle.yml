@@ -6,16 +6,16 @@ machine:
   services:
     - postgresql
   node:
-    version: 5.1.0
+    version: 5.11.0
 dependencies:
   cache_directories:
     - ~/.asdf
     - deps
     - _build
   pre:
-    - ./circle_pre_build.sh
+    - ./bin/circleci.sh
     - mix deps.compile
     - mix compile
 test:
   override:
-    - mix test
+    - mix test --trace

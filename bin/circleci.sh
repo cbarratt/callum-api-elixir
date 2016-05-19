@@ -1,6 +1,4 @@
 #!/bin/bash
-# Ensure exit codes other than 0 fail the build
-
 set -e
 
 # Check for asdf
@@ -12,13 +10,20 @@ fi
 asdf plugin-add erlang https://github.com/HashNuke/asdf-erlang.git
 asdf plugin-add elixir https://github.com/HashNuke/asdf-elixir.git
 
+# Extract vars from elixir_buildpack.config
+. elixir_buildpack.config
+
+# Write .tool-versions
+echo "erlang $erlang_version" >> .tool-versions
+echo "elixir $elixir_version" >> .tool-versions
+
 # Install erlang/elixir
-asdf install erlang 18.3
-asdf install elixir 1.2.5
+asdf install erlang $erlang_version
+asdf install elixir $elixir_version
 
 # Get dependencies
-yes | mix local.rebar
-yes | mix local.hex
+mix local.rebar --force
+mix local.hex --force
 yes | mix deps.get
 
 # Exit successfully
