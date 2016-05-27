@@ -44,7 +44,7 @@ defmodule Callum.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["test --trace"]
+      "test": ["ecto.create", "ecto.migrate", "test --trace"]
     ]
   end
 end
