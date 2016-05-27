@@ -23,7 +23,7 @@ defmodule Callum.ConnCase do
       alias Callum.Repo
       import Ecto
       import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto.Query
 
       import Callum.Router.Helpers
 
@@ -34,6 +34,10 @@ defmodule Callum.ConnCase do
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Callum.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Callum.Repo, {:shared, self()})
+    end
 
     {:ok, conn: Phoenix.ConnTest.conn()}
   end
