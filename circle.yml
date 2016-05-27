@@ -13,7 +13,7 @@ dependencies:
     - deps
     - _build
   pre:
-    - ./bin/circleci.sh
+    - ./bin/circleci_build.sh
     - mix deps.compile
     - mix compile
 test:
