@@ -26,11 +26,12 @@ defmodule Callum.Mixfile do
 
   defp deps do
     [
-      {:phoenix, "~> 1.1.2"},
-      {:phoenix_ecto, "~> 3.0.0-beta.2"},
-      {:postgrex, "~> 0.11.1"},
-      {:phoenix_html, "~> 2.3"},
+      {:phoenix, "~> 1.1.6"},
+      {:phoenix_ecto, "~> 3.0.0"},
+      {:phoenix_html, "~> 2.6"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:postgrex, "~> 0.11.2"},
+      {:ecto, "~> 2.0.0-rc.6", override: true},
       {:gettext, "~> 0.9"},
       {:httpoison, "~> 0.8.3"},
       {:hackney, "~> 1.6.0", override: true},
