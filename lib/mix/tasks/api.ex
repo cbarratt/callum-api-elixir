@@ -82,8 +82,8 @@ defmodule Mix.Tasks.Api do
     end
 
     def format_date(%{"date" => date}) do
-      DateFormat.parse!("2015/#{date}", "{YYYY}/{0M}/{0D}")
-      |> DateFormat.format!("%d %B %Y", :strftime)
+      Timex.parse!("2015/#{date}", "{YYYY}/{0M}/{0D}")
+      |> Timex.format!("%d %B %Y", :strftime)
     end
 
     @doc """

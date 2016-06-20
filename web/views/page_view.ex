@@ -7,7 +7,7 @@ defmodule Callum.PageView do
   end
 
   def calories(intake) do
-    date = Date.now |> DateFormat.format!("%d %B %Y", :strftime)
+    date = DateTime.today |> Timex.format!("%d %B %Y", :strftime)
 
     if intake.logged_date == date do
       intake.calories
