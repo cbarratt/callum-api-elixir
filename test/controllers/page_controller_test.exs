@@ -7,7 +7,7 @@ defmodule Callum.PageControllerTest do
     macro = create(:macro)
     weighin = create(:weighin)
 
-    conn = get conn(), "/"
+    conn = get build_conn(), "/"
 
     assert html_response(conn, 200) =~ macro.calories
     assert html_response(conn, 200) =~ weighin.weight
